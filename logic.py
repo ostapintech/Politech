@@ -6,4 +6,4 @@ def categorize_task(text: str) -> str:
         return "High Priority"
     if "баг" in text or "error" in text:
         return "Bug"
-    return "Task"
+    return "Final Main Task"
