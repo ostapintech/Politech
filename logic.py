@@ -25,4 +25,4 @@ def categorize_task(text: str, deadline_str: str = None) -> str:
         return "High Priority"
     if "баг" in text or "error" in text:
         return "Bug"
-    return "Task"
+    return "Final Feature Task"
