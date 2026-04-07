@@ -1,0 +1,4 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "--cov=logic --cov-report=term-missing --cov-report=html"
+testpaths = ["tests"]
