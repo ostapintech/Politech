@@ -1,4 +1,3 @@
-import pytest
 from logic import categorize_task, get_days_until_deadline
 from datetime import datetime, timedelta
 

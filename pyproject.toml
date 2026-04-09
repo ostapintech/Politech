@@ -2,3 +2,9 @@
 pythonpath = ["."]
 addopts = "--cov=logic --cov-report=term-missing --cov-report=html"
 testpaths = ["tests"]
+[tool.poe.tasks]
+dev = "python -c 'from dotenv import load_dotenv; load_dotenv(\".env\"); import uvicorn; uvicorn.run(\"main:app\", reload=True)'"
+prod = "python -c 'from dotenv import load_dotenv; load_dotenv(\".env.production\"); import uvicorn; uvicorn.run(\"main:app\")'"
+lint = "ruff check . --fix"
+test = "pytest"
+test-coverage = "pytest --cov=. --cov-report=html"
