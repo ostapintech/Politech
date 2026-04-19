@@ -1,3 +1,4 @@
+[![Python CI/CD Pipeline](https://github.com/ostapintech/Politech/actions/workflows/ci-cd.yml/badge.svg?branch=main)](https://github.com/ostapintech/Politech/actions/workflows/ci-cd.yml)
 # AI Task Categorizer MVP
 ## Опис проєкту
 
