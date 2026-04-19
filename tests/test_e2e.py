@@ -4,7 +4,9 @@ from typing import Generator
 
 
 @pytest.fixture(scope="session")
-def api_request_context(playwright: Playwright) -> Generator[APIRequestContext, None, None]:
+def api_request_context(
+    playwright: Playwright,
+) -> Generator[APIRequestContext, None, None]:
     request_context = playwright.request.new_context(base_url="http://127.0.0.1:8000")
     yield request_context
     request_context.dispose()
@@ -12,8 +14,7 @@ def api_request_context(playwright: Playwright) -> Generator[APIRequestContext, 
 
 def test_analyze_bug_task(api_request_context: APIRequestContext):
     response = api_request_context.post(
-        "/analyze",
-        params={"task_description": "У мене виникає баг при вході"}
+        "/analyze", params={"task_description": "У мене виникає баг при вході"}
     )
 
     assert response.ok
@@ -23,10 +24,7 @@ def test_analyze_bug_task(api_request_context: APIRequestContext):
 def test_analyze_urgent_deadline(api_request_context: APIRequestContext):
     response = api_request_context.post(
         "/analyze",
-        params={
-            "task_description": "Зробити звіт",
-            "deadline": "2026-04-08"
-        }
+        params={"task_description": "Зробити звіт", "deadline": "2026-04-08"},
     )
 
     assert response.ok

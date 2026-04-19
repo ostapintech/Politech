@@ -9,12 +9,11 @@ app = FastAPI()
 
 APP_STATUS = os.getenv("VITE_APP_STATUS", "Development")
 
+
 @app.get("/")
 def read_root():
-    return {
-        "message": "AI Task Categorizer is running",
-        "status": APP_STATUS
-    }
+    return {"message": "AI Task Categorizer is running", "status": APP_STATUS}
+
 
 @app.post("/analyze")
 def analyze(task_description: str, deadline: str = None):
@@ -23,5 +22,5 @@ def analyze(task_description: str, deadline: str = None):
         "description": task_description,
         "deadline": deadline,
         "category": category,
-        "env_mode": APP_STATUS
+        "env_mode": APP_STATUS,
     }
