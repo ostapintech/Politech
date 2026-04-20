@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна 5: Тестування Аналітики</title>
+
+    <script>
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures onSessionId setPersonProperties".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1.3)}(document,window.posthog||[]);
+
+        posthog.init('<phc_tCiUsDELVpJQrHJSoRU89gVuR92NAYDx8VYx5DLt8Aot>', {
+            api_host: 'https://us.i.posthog.com',
+            capture_pageview: true,
+        persistence: 'localStorage'
+        });
+    </script>
+
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px; }
+        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 300px; }
+        input, button { width: 100%; margin-top: 10px; padding: 8px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #urgent-btn { background-color: #dc3545; display: none; } /* Прихована кнопка для Кроку 5 [cite: 834] */
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>UniDone v2</h2>
+        <p>Тестування запису сесій та Feature Flags</p>
+
+        <input type="text" id="taskInput" placeholder="Назва завдання...">
+        <button onclick="sendTask()">Аналізувати завдання</button>
+
+        <button id="urgent-btn">ТЕРМІНОВО (Flag Active)</button>
+    </div>
+
+    <script>
+        // Крок 5: Керування інтерфейсом через Feature Flag [cite: 832, 833]
+        posthog.onFeatureFlags(function() {
+            if (posthog.isFeatureEnabled('show-urgent-filter')) {
+                document.getElementById('urgent-btn').style.display = 'block';
+            }
+        });
+
+        // Функція для імітації створення завдання та кастомної події
+        async function sendTask() {
+            const desc = document.getElementById('taskInput').value;
+
+            // Відправляємо подію в PostHog (Клієнтська сторона) [cite: 412]
+            posthog.capture('task_analyzed_client', {
+                task_length: desc.length
+            });
+
+            alert('Подія відправлена! Перевір Session Replay у PostHog.');
+        }
+    </script>
+
+</body>
+</html>
