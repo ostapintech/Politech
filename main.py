@@ -37,7 +37,11 @@ def read_root():
 def analyze(task_description: str = "", deadline: str = None, user_id: str = "guest"):
     # 1. Sentry Context
     sentry_sdk.set_user(
-        {"id": user_id, "email": "ostap.zherebtsov.pp.2023@lpnu.ua", "username": "Ostap"}
+        {
+            "id": user_id,
+            "email": "ostap.zherebtsov.pp.2023@lpnu.ua",
+            "username": "Ostap",
+        }
     )
 
     sentry_sdk.add_breadcrumb(
@@ -75,6 +79,8 @@ def analyze(task_description: str = "", deadline: str = None, user_id: str = "gu
         "category": category,  # This fixes the KeyError
         "env_mode": APP_STATUS,
     }
+
+
 @app.get("/sentry-debug")
 async def trigger_error():
     with sentry_sdk.configure_scope() as scope:
